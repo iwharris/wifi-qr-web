@@ -53,7 +53,7 @@ const InputForm = ({ values, updateValue }: Props) => {
               value={values.hidden ? 'Y' : 'N'}
               onChange={updateValue('hidden')}
             />
-            <Form.Text className="text-muted">Whether the network broadcasts its SSD</Form.Text>
+            <Form.Text className="text-muted">Whether the network broadcasts its SSID</Form.Text>
           </Form.Group>
         </Col>
         <Col>

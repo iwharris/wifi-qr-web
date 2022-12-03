@@ -2,8 +2,7 @@ import React from 'react';
 
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
-import Image from 'react-bootstrap/Image';
-import Placeholder from 'react-bootstrap/Placeholder';
+
 import Row from 'react-bootstrap/Row';
 
 import useDebouncedValue from './hooks/useDebouncedValue';
@@ -11,6 +10,8 @@ import InputForm from './components/InputForm';
 import type { FormValues, UpdateValuesCallback } from './types';
 
 import { createQRCode, encodeWifiConfig } from 'wifi-qr';
+import QrStringHideable from './components/QrStringHideable';
+import QrImage from './components/QrImage';
 
 function WifiQrApp() {
   const [values, setValues] = React.useState<FormValues>({
@@ -20,10 +21,10 @@ function WifiQrApp() {
     hidden: false,
   });
 
-  const [qrData, setQrData] = React.useState<string>('');
-  const [qrCode, setQrCode] = React.useState<string>('');
+  const [qrImageData, setQrImageData] = React.useState<string>('');
+  const [qrString, setQrString] = React.useState<string>('');
 
-  const debouncedValues = useDebouncedValue<FormValues>(values, 250);
+  const debouncedValues = useDebouncedValue<FormValues>(values, 50);
 
   React.useEffect(() => {
     const wifiConfig: FormValues = {
@@ -33,18 +34,26 @@ function WifiQrApp() {
 
     const generate = async () => {
       const code = await createQRCode(wifiConfig, {}).toDataUrl({ scale: 16 });
-      setQrData(code);
-      setQrCode(encodeWifiConfig(wifiConfig));
+      setQrImageData(code);
+      setQrString(encodeWifiConfig(wifiConfig));
     };
 
     if (wifiConfig.ssid) {
       generate().catch((err) => console.warn('something went wrong', err));
+    } else {
+      setQrImageData('');
+      setQrString('');
     }
   }, [debouncedValues]);
 
   const updateValue: UpdateValuesCallback = (field) => {
-    return (event: any /*ChangeEventHandler*/) =>
-      setValues({ ...values, [field]: event.target.value });
+    return (event) => {
+      if (event.target.type === 'checkbox') {
+        setValues({ ...values, [field]: event.target.checked });
+      } else {
+        setValues({ ...values, [field]: event.target.value });
+      }
+    };
   };
 
   return (
@@ -57,8 +66,12 @@ function WifiQrApp() {
           <InputForm values={values} updateValue={updateValue} />
         </Col>
         <Col md={4}>
-          <Image fluid src={qrData} className="w-100" />
-          <p className="font-monospace">{qrCode}</p>
+          <Row>
+            <QrImage qrData={qrImageData} fullWidth />
+          </Row>
+          {/* <Row>
+            <QrStringHideable qrString={qrString} />
+          </Row> */}
         </Col>
       </Row>
     </Container>
