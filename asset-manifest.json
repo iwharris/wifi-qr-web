@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/wifi-qr-web/static/css/main.c2cab247.css",
+    "main.js": "/wifi-qr-web/static/js/main.d0f0d647.js",
+    "static/js/787.45a4f531.chunk.js": "/wifi-qr-web/static/js/787.45a4f531.chunk.js",
+    "index.html": "/wifi-qr-web/index.html",
+    "main.c2cab247.css.map": "/wifi-qr-web/static/css/main.c2cab247.css.map",
+    "main.d0f0d647.js.map": "/wifi-qr-web/static/js/main.d0f0d647.js.map",
+    "787.45a4f531.chunk.js.map": "/wifi-qr-web/static/js/787.45a4f531.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c2cab247.css",
+    "static/js/main.d0f0d647.js"
+  ]
+}
