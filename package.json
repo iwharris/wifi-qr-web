@@ -2,7 +2,7 @@
   "name": "wifi-qr-web",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://iwharris.github.io/wifi-qr-web",
+  "homepage": "https://ianharris.io/wifi-qr-web",
   "dependencies": {
     "bootstrap": "^5.2.3",
     "react": "^18.2.0",
